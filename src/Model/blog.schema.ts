@@ -7,29 +7,36 @@ export class Blog extends Document {
   @Prop({ required: true })
   title: string;
 
+  // 文章简介概述
+  @Prop({ required: true })
+  desc: string;
 
-  //文章简介概述
-//   @Prop({ required: true })
-//   state: string;
-//   //文章封面
-//   @Prop({ required: true })
-//   cover_img: string;
-// //  文章发布日期
-//   @Prop({ default: new Date() })
-//   date: Date;
-// //  作者
-//   @Prop({ default: '艾瑞' })
-//   author: string;
-// //  类型-是否原创
-//   @Prop({ required: true })
-//   type: string;
-// //  文章地址url
-//   @Prop({ required: true })
-//   md_url: string;
-// //分类
-//   @Prop([String])
-//   classifications: string[];
-// //  评论，留言
+  //文章封面
+  @Prop()
+  cover: Object;
 
+  //  文章发布日期
+  @Prop({ default: new Date() })
+  date: Date;
+
+  //  作者
+  @Prop({ default: '艾瑞' })
+  author: string;
+
+  //  类型-是否原创
+  @Prop({ default: true })
+  delivery: boolean;
+
+  @Prop({ required: true })
+  tags: Array<string>;
+
+  //  文章地址url
+  @Prop({ required: true })
+  context: string;
+
+  //分类
+  @Prop()
+  classifications: Array<object>;
+  //  评论，留言
 }
 export const BlogSchema = SchemaFactory.createForClass(Blog);

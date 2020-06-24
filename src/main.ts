@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors()
   const options = new DocumentBuilder()
     .setTitle('艾瑞个人博客接口API')
     .setDescription('The cats API description')

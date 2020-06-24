@@ -1,3 +1,4 @@
+import { BlogDto } from './../../Dto/blog.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -11,6 +12,11 @@ export class BlogService {
   async findAll(): Promise<Blog[]> {
     console.log(await this.blogModel.find());
     return this.blogModel.find().exec();
+  }
+
+  async addBlog(blog:BlogDto):Promise<Blog>{
+    return await new this.blogModel(blog).save();
+
   }
 
 }
