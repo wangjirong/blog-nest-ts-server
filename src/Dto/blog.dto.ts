@@ -6,5 +6,5 @@ export class BlogDto{
     delivery: boolean;
     tags: Array<string>;
     context: string;
-    classifications: Array<object>;
+    comment: Array<object>;
 }

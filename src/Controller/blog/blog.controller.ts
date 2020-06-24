@@ -1,5 +1,13 @@
 import { Request } from 'express';
-import { Controller, Get, Post, Req, UseInterceptors, HttpCode} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseInterceptors,
+  HttpCode,
+  Param,
+} from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { Blog } from '../../Model/blog.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -18,9 +26,8 @@ export class BlogController {
     return 'blog index';
   }
 
-  @Get('/getBlogs')
+  @Get('/getAllBlogs')
   async getBlog(): Promise<Blog[]> {
-    console.log(await this.blogService.findAll());
     return await this.blogService.findAll();
   }
 
@@ -30,10 +37,21 @@ export class BlogController {
   async creatdBlog(@Req() req: Request, @UploadedFile() file): Promise<any> {
     const { info } = req.body;
     const result = await this.oSSService.upload(file);
-     const blog = this.blogService.addBlog({...JSON.parse(info),cover:result[0]});
-     console.log( await blog);
-     
-
+    const blog = this.blogService.addBlog({
+      ...JSON.parse(info),
+      cover: result[0],
+    });
     return 'success';
+  }
+
+  @Post('/deleteBlog/:_id')
+  @HttpCode(200)
+  async deleteBlog(@Param('_id') _id, @Req() req: Request): Promise<any> {
+    const { cover } = req.body;
+    const uploadUrl = [cover.path];
+    return Promise.all([
+      this.blogService.deleteBlog(_id),
+      this.oSSService.deleteMulti(uploadUrl),
+    ]);
   }
 }

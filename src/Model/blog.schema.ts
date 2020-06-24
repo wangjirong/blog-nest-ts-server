@@ -34,9 +34,9 @@ export class Blog extends Document {
   @Prop({ required: true })
   context: string;
 
-  //分类
+    //  评论，留言
   @Prop()
-  classifications: Array<object>;
-  //  评论，留言
+  comment: Array<object>;
+
 }
 export const BlogSchema = SchemaFactory.createForClass(Blog);
