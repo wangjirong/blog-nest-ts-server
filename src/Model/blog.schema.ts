@@ -38,5 +38,8 @@ export class Blog extends Document {
   @Prop()
   comment: Array<object>;
 
+  @Prop({default:0})
+  readCount:number
+
 }
 export const BlogSchema = SchemaFactory.createForClass(Blog);

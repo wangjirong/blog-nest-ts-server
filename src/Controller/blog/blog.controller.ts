@@ -7,6 +7,7 @@ import {
   UseInterceptors,
   HttpCode,
   Param,
+  Query,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { Blog } from '../../Model/blog.schema';
@@ -26,9 +27,22 @@ export class BlogController {
     return 'blog index';
   }
 
+  @Get('/detaile/:id')
+  @HttpCode(200)
+  async getBlogByID(@Param('id') id): Promise<Blog> {
+    return await this.blogService.GetBlogByID(id);
+  }
+
   @Get('/getAllBlogs')
-  async getBlog(): Promise<Blog[]> {
+  @HttpCode(200)
+  async getAllBlog(): Promise<Blog[]> {
     return await this.blogService.findAll();
+  }
+
+  @Get('/getBlogs')
+  @HttpCode(200)
+  async getBlog(@Query() query): Promise<Array<Blog>> {
+    return await this.blogService.getBlogsByPageIndexAndPageSize(query);
   }
 
   @Post('/addBlog')
@@ -53,5 +67,29 @@ export class BlogController {
       this.blogService.deleteBlog(_id),
       this.oSSService.deleteMulti(uploadUrl),
     ]);
+  }
+
+  @Get('/getSwipper')
+  @HttpCode(200)
+  async getSwipper(): Promise<Array<Blog>> {
+    return await this.blogService.getSwipper();
+  }
+
+  @Get('/addReadCount')
+  @HttpCode(200)
+  async addReadCount(@Query() _id): Promise<any> {
+    return await this.blogService.addReadCount(_id);
+  }
+
+  @Post('/addTag')
+  async addTag(@Req() req: Request): Promise<any> {
+    const { body } = req;
+    return;
+  }
+
+  @Get('/getAllTags')
+  @HttpCode(200)
+  async getAllTags(): Promise<Array<string>> {
+    return;
   }
 }
