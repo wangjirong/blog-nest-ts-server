@@ -41,5 +41,9 @@ export class Blog extends Document {
   @Prop({default:0})
   readCount:number
 
+  // 是否置顶
+  @Prop({default:false})
+  stick:boolean
+
 }
 export const BlogSchema = SchemaFactory.createForClass(Blog);

@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, query } from 'express';
 import {
   Controller,
   Get,
@@ -85,5 +85,12 @@ export class BlogController {
   @HttpCode(200)
   async getAllTags(): Promise<Array<string>> {
     return;
+  }
+
+  @Get('/searchBlog')
+  @HttpCode(200)
+  async searchBlog(@Query() query): Promise<Array<Blog>> {
+    const { keyword } = query;
+    return await this.blogService.searchByKeyword(keyword);
   }
 }
