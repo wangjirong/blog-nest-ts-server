@@ -51,7 +51,7 @@ export class BlogController {
   async creatdBlog(@Req() req: Request, @UploadedFile() file): Promise<any> {
     const { info } = req.body;
     const result = await this.oSSService.upload(file);
-    const blog = this.blogService.addBlog({
+    const blog = await this.blogService.addBlog({
       ...JSON.parse(info),
       cover: result[0],
     });
@@ -79,12 +79,6 @@ export class BlogController {
   @HttpCode(200)
   async addReadCount(@Query() _id): Promise<any> {
     return await this.blogService.addReadCount(_id);
-  }
-
-  @Post('/addTag')
-  async addTag(@Req() req: Request): Promise<any> {
-    const { body } = req;
-    return;
   }
 
   @Get('/getAllTags')
