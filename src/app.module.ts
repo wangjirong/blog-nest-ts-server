@@ -1,3 +1,4 @@
+import { DiaryModule } from './Controller/diary/diary.module';
 import { LinkModule } from './Controller/link/link.module';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -12,9 +13,10 @@ import { TagModule } from './Controller/tag/tag.module';
   imports: [
     MongooseModule.forRoot(`mongodb://localhost:27017/IRIBlog`),
     BlogModule,
+    DiaryModule,
     UserModule,
     TagModule,
-    LinkModule
+    LinkModule,
   ],
   controllers: [AppController],
   providers: [AppService],
