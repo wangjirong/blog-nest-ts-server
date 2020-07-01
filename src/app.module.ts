@@ -1,3 +1,4 @@
+import { LinkModule } from './Controller/link/link.module';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -13,6 +14,7 @@ import { TagModule } from './Controller/tag/tag.module';
     BlogModule,
     UserModule,
     TagModule,
+    LinkModule
   ],
   controllers: [AppController],
   providers: [AppService],
