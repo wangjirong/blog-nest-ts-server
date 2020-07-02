@@ -27,18 +27,14 @@ export class DiaryController {
   @UseInterceptors(FileInterceptor('file'))
   async addDiary(@Req() req: Request, @UploadedFile() file): Promise<Diary> {
     const { text } = req.body;
-    console.log(text);
-
     const result = await this.oSSService.upload(file);
-    console.log(result[0]);
-
     const res = await this.diaryService.addDiary({
       text,
       img: result[0],
       date: new Date(),
     });
 
-    return;
+    return res;
   }
 
   @Post('/deleteDiary/:id')

@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  console.log("数据库已连接");
+  
   app.enableCors()
   const options = new DocumentBuilder()
     .setTitle('艾瑞个人博客接口API')
