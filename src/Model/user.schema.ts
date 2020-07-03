@@ -3,16 +3,12 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class User extends Document {
-  constructor(userName: string, password: string) {
-    super();
-    this.userName = userName;
-    this.password = password;
-  }
-
   @Prop({ required: true })
-  userName: string;
+  openID: string;
   @Prop({ required: true })
-  password: string;
+  nickName: string;
+  @Prop({ required: true })
+  avatar: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
