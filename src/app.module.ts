@@ -1,3 +1,4 @@
+import { MessageModule } from './Controller/message/message.module';
 import localDataBaseURI, { ServerDataBaseURI } from './config/database';
 import { DiaryModule } from './Controller/diary/diary.module';
 import { LinkModule } from './Controller/link/link.module';
@@ -19,6 +20,7 @@ import { TagModule } from './Controller/tag/tag.module';
     UserModule,
     TagModule,
     LinkModule,
+    MessageModule
   ],
   controllers: [AppController],
   providers: [AppService],
