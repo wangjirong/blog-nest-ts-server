@@ -1,3 +1,4 @@
+import { AdminModule } from './Controller/admin/admin.module';
 import { MessageModule } from './Controller/message/message.module';
 import localDataBaseURI, { ServerDataBaseURI } from './config/database';
 import { DiaryModule } from './Controller/diary/diary.module';
@@ -11,7 +12,6 @@ import { BlogModule } from './Controller/blog/blog.module';
 import { UserModule } from './Controller/user/user.module';
 import { TagModule } from './Controller/tag/tag.module';
 
-
 @Module({
   imports: [
     MongooseModule.forRoot(localDataBaseURI),
@@ -20,7 +20,8 @@ import { TagModule } from './Controller/tag/tag.module';
     UserModule,
     TagModule,
     LinkModule,
-    MessageModule
+    MessageModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
