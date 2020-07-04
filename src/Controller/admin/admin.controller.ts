@@ -10,8 +10,17 @@ export class AdminController {
 
   @Post('/register')
   @HttpCode(200)
-  async register(@Body() adminDto: AdminDto): Promise<Admin | any> {
-    return this.adminService.register(adminDto);
+  async register(@Body() adminDto: AdminDto,@Req() req:Request): Promise<Admin | any> {
+    return this.adminService.register(adminDto,req.body.invitationCode);
+  }
+
+  @Post('/getVerificationCode')
+  @HttpCode(200)
+  async getVerificationCode(@Req() req: Request): Promise<string> {
+    const { email } = req.body;
+    console.log(email);
+    
+    return await this.adminService.getVerificationCode(email);
   }
 
   @Post('/login')

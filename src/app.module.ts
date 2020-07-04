@@ -11,10 +11,35 @@ import { AppService } from './app.service';
 import { BlogModule } from './Controller/blog/blog.module';
 import { UserModule } from './Controller/user/user.module';
 import { TagModule } from './Controller/tag/tag.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { mailSTMPHost, mailSTMPSecret } from './config/mail';
 
 @Module({
   imports: [
     MongooseModule.forRoot(localDataBaseURI),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.qq.com',
+        port: 465,
+        auth: {
+          user: mailSTMPHost,
+          pass: mailSTMPSecret,
+        },
+      },
+      defaults: {
+        from: mailSTMPHost,
+      },
+      preview: true,
+
+      // template: {
+      //   dir:process.cwd() + '/template/',
+      //   adapter: new HandlebarsAdapter(),
+      //   options: {
+      //     strict: true,
+      //   },
+      // },
+    }),
     BlogModule,
     DiaryModule,
     UserModule,
