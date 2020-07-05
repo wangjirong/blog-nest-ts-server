@@ -40,8 +40,6 @@ export class AdminService {
   }
 
   async getVerificationCode(email: string): Promise<string> {
-    console.log(email);
-
     return this.mailService.senMail(email);
   }
 

@@ -18,8 +18,6 @@ export class AdminController {
   @HttpCode(200)
   async getVerificationCode(@Req() req: Request): Promise<string> {
     const { email } = req.body;
-    console.log(email);
-    
     return await this.adminService.getVerificationCode(email);
   }
 

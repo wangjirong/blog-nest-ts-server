@@ -54,6 +54,22 @@ export class BlogService {
     });
   }
 
+  async comment(_id: string, text: string, user: object): Promise<any> {
+    return this.blogModel.update(
+      { _id },
+      {
+        $push: {
+          comment: {
+            text,
+            user,
+            date:new Date(),
+            reply:[]
+          },
+        },
+      },
+    );
+  }
+
   async searchByKeyword(keyword: string): Promise<Array<Blog>> {
     const regx = new RegExp(keyword, 'i');
     return await this.blogModel

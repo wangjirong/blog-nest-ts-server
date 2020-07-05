@@ -93,4 +93,13 @@ export class BlogController {
     const { keyword } = query;
     return await this.blogService.searchByKeyword(keyword);
   }
+
+
+  @Post('/comment')
+  @HttpCode(200)
+  async comment(@Req() req:Request):Promise<any>{
+    const {_id,text,user} = req.body;
+    console.log(_id,text,user);
+    return await this.blogService.comment(_id,text,user)
+  }
 }
