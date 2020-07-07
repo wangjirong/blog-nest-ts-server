@@ -19,6 +19,6 @@ export class DiaryService {
   }
 
   async getAllDiary(): Promise<Array<Diary>> {
-    return await this.diaryModel.find();
+    return await this.diaryModel.find().sort({ date: -1 });
   }
 }

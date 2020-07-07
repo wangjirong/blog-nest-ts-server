@@ -15,7 +15,7 @@ export class BlogService {
   }
 
   async findAll(): Promise<Blog[]> {
-    return await this.blogModel.find();
+    return await this.blogModel.find().sort({date:-1});
   }
 
   async addBlog(blog: BlogDto): Promise<Blog> {
@@ -39,11 +39,11 @@ export class BlogService {
       .sort({ date: -1 });
   }
 
-  async getSwipper(): Promise<Array<Blog>> {
+  async getSwipper(count: number): Promise<Array<Blog>> {
     return await this.blogModel
-      .find()
-      .limit(3)
-      .sort({ date: -1 });
+      .find({ stick: true })
+      .sort({ date: -1 })
+      .limit(count || 3);
   }
 
   async addReadCount(_id: string): Promise<any> {
@@ -62,8 +62,8 @@ export class BlogService {
           comment: {
             text,
             user,
-            date:new Date(),
-            reply:[]
+            date: new Date(),
+            reply: [],
           },
         },
       },

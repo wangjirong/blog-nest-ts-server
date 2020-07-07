@@ -9,6 +9,9 @@ export class User extends Document {
   nickName: string;
   @Prop({ required: true })
   avatar: string;
+  // 登录时间
+  @Prop({ default: new Date() })
+  date: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

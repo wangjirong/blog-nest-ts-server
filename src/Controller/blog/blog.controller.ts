@@ -71,8 +71,9 @@ export class BlogController {
 
   @Get('/getSwipper')
   @HttpCode(200)
-  async getSwipper(): Promise<Array<Blog>> {
-    return await this.blogService.getSwipper();
+  async getSwipper(@Query() query): Promise<Array<Blog>> {
+    const count:number = parseInt(query.count)
+    return await this.blogService.getSwipper(count);
   }
 
   @Get('/addReadCount')

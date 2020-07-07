@@ -17,6 +17,6 @@ export class TagService {
   }
 
   async getAllTags(): Promise<Array<Tag>> {
-    return await this.tagModel.find();
+    return await this.tagModel.find({}).sort({ date: -1 });
   }
 }

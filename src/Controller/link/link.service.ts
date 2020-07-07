@@ -14,7 +14,7 @@ export class LinkService {
   }
 
   async getAllLinks(): Promise<Array<Link>> {
-    return await this.linkModel.find();
+    return await this.linkModel.find({}).sort({ date: -1 });
   }
 
   async deleteLink(_id: string): Promise<any> {

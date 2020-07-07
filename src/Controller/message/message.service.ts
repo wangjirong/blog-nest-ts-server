@@ -15,6 +15,6 @@ export class MessageService {
   }
 
   async getAllMessage(): Promise<Array<Message>> {
-    return await this.messageModel.find();
+    return await this.messageModel.find().sort({date:-1});
   }
 }

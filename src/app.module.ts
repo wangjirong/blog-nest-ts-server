@@ -1,3 +1,4 @@
+import { IndexModule } from './Controller/index/index.module';
 import { AdminModule } from './Controller/admin/admin.module';
 import { MessageModule } from './Controller/message/message.module';
 import localDataBaseURI, { ServerDataBaseURI } from './config/database';
@@ -17,7 +18,7 @@ import { mailSTMPHost, mailSTMPSecret } from './config/mail';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(localDataBaseURI),
+    MongooseModule.forRoot(ServerDataBaseURI),
     MailerModule.forRoot({
       transport: {
         host: 'smtp.qq.com',
@@ -40,6 +41,7 @@ import { mailSTMPHost, mailSTMPSecret } from './config/mail';
       //   },
       // },
     }),
+    IndexModule,
     BlogModule,
     DiaryModule,
     UserModule,

@@ -14,7 +14,7 @@ export class UserService {
   ) {}
 
   async getAllUser(): Promise<User[]> {
-    return this.userModel.find();
+    return this.userModel.find().sort({ date: -1 });
   }
 
   async findUserByOpenID(openID: string): Promise<User> {
