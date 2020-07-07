@@ -36,6 +36,7 @@ export class UserController {
         openID,
         nickName: nickname,
         avatar: figureurl_1,
+        date:new Date()
       });
     }
     return user;

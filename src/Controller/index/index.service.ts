@@ -17,7 +17,7 @@ export class IndexService {
     const blogs = await this.blogModel.find({});
     const users = await this.userModle.find({});
     const messages = await this.messageModel.find({});
-    return {
+    const info =  {
       blogCount: blogs.length,
       messageCount: messages.length,
       user: {
@@ -25,5 +25,6 @@ export class IndexService {
         userCount: users.length,
       },
     };
+    return JSON.stringify(info)
   }
 }
