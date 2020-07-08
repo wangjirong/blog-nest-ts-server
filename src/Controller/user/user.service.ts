@@ -11,6 +11,7 @@ export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly httpService: HttpService,
+
   ) {}
 
   async getAllUser(): Promise<User[]> {
@@ -18,7 +19,11 @@ export class UserService {
   }
 
   async findUserByOpenID(openID: string): Promise<User> {
-    return await this.userModel.findOne({ openID });
+    const user = await this.userModel.findOneAndUpdate(
+      { openID },
+      { date: new Date() },
+    );
+    return user;
   }
 
   async login(userDto: UserDto): Promise<User> {

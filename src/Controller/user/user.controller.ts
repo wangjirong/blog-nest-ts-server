@@ -1,27 +1,45 @@
+import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
-import { Controller, Get, Post, Req, Body, Query } from '@nestjs/common';
-import { Request } from 'express';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Res,
+  HttpCode,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 import { User } from '../../Model/user.schema';
 import { UserService } from './user.service';
 import { UserDto } from '../../Dto/user.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   @Get('/')
+  @HttpCode(200)
   async getAllUser(): Promise<User[]> {
     return await this.userService.getAllUser();
   }
 
   @Post('/register')
+  @HttpCode(200)
   async register(@Body() userDto: UserDto): Promise<User> {
     // return await this.userService.register(userDto);
     return;
   }
 
   @Get('/qqLogin')
-  async login(@Query('access_token') access_token: string): Promise<any> {
+  @HttpCode(200)
+  async login(
+    @Query('access_token') access_token: string,
+    @Res() res: Response,
+  ): Promise<any> {
     const observable = this.userService.getOpenId(access_token);
     const { data } = await observable.toPromise();
     const regx = /\"openid\"\:\"([0-9a-zA-Z]+)\"/;
@@ -36,9 +54,15 @@ export class UserController {
         openID,
         nickName: nickname,
         avatar: figureurl_1,
-        date:new Date()
+        date: new Date(),
       });
     }
-    return user;
+    const token = 'Bearer ' + this.jwtService.sign({ ...user });
+    res.cookie('token', token, {
+      domain: 'cirev.cn',
+      maxAge: 1000 * 60 * 60 * 240,
+      httpOnly: false,
+    });
+    res.send(token);
   }
 }

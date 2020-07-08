@@ -11,7 +11,7 @@ export class Message extends Document {
   @Prop({ required: true })
   browser: string;
 
-  @Prop({default:"北京市朝阳区"})
+  @Prop({ default: '北京市朝阳区' })
   location: string;
 
   @Prop({ default: new Date() })
