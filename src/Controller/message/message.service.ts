@@ -11,10 +11,11 @@ export class MessageService {
   ) {}
 
   async leaveMessage(messageDto: MessageDto): Promise<Message> {
+    messageDto.date = new Date();
     return await new this.messageModel(messageDto).save();
   }
 
   async getAllMessage(): Promise<Array<Message>> {
-    return await this.messageModel.find().sort({date:-1});
+    return await this.messageModel.find().sort({ date: -1 });
   }
 }

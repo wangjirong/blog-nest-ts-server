@@ -16,15 +16,19 @@ export class IndexService {
   async getSiteStatics(): Promise<any> {
     const blogs = await this.blogModel.find({});
     const users = await this.userModle.find({});
+    const recentUser = await this.userModle
+      .find({})
+      .sort({ date: -1 })
+      .limit(12);
     const messages = await this.messageModel.find({});
-    const info =  {
+    const info = {
       blogCount: blogs.length,
       messageCount: messages.length,
       user: {
-        recentUser: users.filter(user => users.indexOf(user) < 9),
+        recentUser,
         userCount: users.length,
       },
     };
-    return JSON.stringify(info)
+    return JSON.stringify(info);
   }
 }

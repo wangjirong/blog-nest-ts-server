@@ -45,24 +45,22 @@ export class UserController {
     const regx = /\"openid\"\:\"([0-9a-zA-Z]+)\"/;
     data.match(regx);
     const openID = RegExp.$1;
-    let user = await this.userService.findUserByOpenID(openID);
-    if (!user) {
-      const ob = this.userService.getUserInfo(access_token, openID);
-      const info = await (await ob.toPromise()).data;
-      const { nickname, figureurl_1 } = info;
-      user = await this.userService.Register({
-        openID,
-        nickName: nickname,
-        avatar: figureurl_1,
-        date: new Date(),
-      });
-    }
+    const ob = this.userService.getUserInfo(access_token, openID);
+    const info = await (await ob.toPromise()).data;
+    const { nickname, figureurl_1 } = info;
+    const user = this.userService.updateUserByOpenID(openID, {
+      openID,
+      nickName: nickname,
+      avatar: figureurl_1,
+      date: new Date(),
+    });
     const token = 'Bearer ' + this.jwtService.sign({ ...user });
     res.cookie('token', token, {
-      domain: 'cirev.cn',
+      domain: '.cirev.cn',
       maxAge: 1000 * 60 * 60 * 240,
       httpOnly: false,
     });
     res.send(token);
   }
+
 }
